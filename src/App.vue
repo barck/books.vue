@@ -7,7 +7,7 @@
     <v-content>
       <v-container>
         <div class="books-container">
-          <v-card v-for="book in books">
+          <v-card v-for="book in books" :key="book.id">
             <v-card-media src="./src/img/book.jpg" height="200px">
             </v-card-media>
             <v-card-title primary-title>
