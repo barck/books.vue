@@ -80,27 +80,6 @@
         "Зубарева"
       ],
       "subject": "Литература"
-    },
-    {
-      "id": 10,
-      "class": 9,
-      "authors": [
-        "Виленкин",
-        "Зубарева"
-      ],
-      "subject": "Литература"
-    },
-    {
-      "class": "4",
-      "authors": "test",
-      "subject": "testsubj",
-      "id": 11
-    },
-    {
-      "class": "100",
-      "authors": "wefwdfwdfwdf",
-      "subject": "sdsdsdfsdfsdfsdfsdf",
-      "id": 12
     }
   ]
 }

@@ -9,7 +9,7 @@
     </v-form>
     <div class="books-container">
       <v-card v-for="book in books" :key="book.id">
-        <v-card-media height="200px" >
+        <v-card-media height="100px" >
           <img src="../assets/img/book.jpg" alt="">
         </v-card-media>
         <v-card-title primary-title>
@@ -58,6 +58,7 @@ export default {
         .then((response) => {
           /* eslint-disable */
           console.log(response);
+          this.getAllPosts();
           /* eslint-enable */
         })
         .catch((error) => {
@@ -67,7 +68,10 @@ export default {
         });
     },
   },
-  created() {
+  // updated() {
+  //   this.getAllPosts();
+  // },
+  mounted() {
     this.getAllPosts();
   },
 };
