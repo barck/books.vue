@@ -3,7 +3,8 @@
     <code class="display-1">/Books.page</code>
     <div class="books-container">
       <v-card v-for="book in books" :key="book.id">
-        <v-card-media src="../assets/img/book.jpg" height="200px">
+        <v-card-media height="200px" >
+          <img src="../assets/img/book.jpg" alt="">
         </v-card-media>
         <v-card-title primary-title>
           <div>
@@ -24,30 +25,25 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
   name: 'Books',
   data() {
     return {
+      show: true,
       books: [],
       booksUrl: 'http://localhost:3000/books',
     };
   },
   computed: {
-    resource() {
-      return this.$resource(this.booksUrl);
-    },
   },
   methods: {
     getAllPosts() {
-      this.resource.get(this.booksUrl).then(
-        (response) => {
-          // console.log(response);
+      axios.get(this.booksUrl)
+        .then((response) => {
           this.books = response.data;
-        },
-        // (error) => {
-        //   console.log(error);
-        // },
-      );
+        });
     },
   },
   created() {
