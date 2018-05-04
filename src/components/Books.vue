@@ -17,11 +17,11 @@
             <h4>{{ book.id }}</h4>
             <h3 class="headline mb-0">{{ book.class }} класс</h3>
             <h3>{{ book.subject }}</h3>
-            <h5 v-for="author in book.authors" :key="author.id">{{ author }}</h5>
+            <h5 >{{ book.authors }}</h5>
           </div>
         </v-card-title>
         <v-card-actions>
-          <v-btn flat color="orange">Удалить</v-btn>
+          <v-btn flat color="orange" @click="deleteBook(book.id)">Удалить</v-btn>
           <v-btn flat color="orange">Редактировать</v-btn>
         </v-card-actions>
       </v-card>
@@ -37,6 +37,7 @@ export default {
   name: 'Books',
   data() {
     return {
+      currentBook: 0,
       klass: '',
       authors: '',
       subject: '',
@@ -52,6 +53,22 @@ export default {
         .then((response) => {
           this.books = response.data;
         });
+    },
+    deleteBook(id) {
+      const deleteBookUrl = `http://localhost:3000/books/${id}`;
+      axios.delete(deleteBookUrl)
+        .then((response) => {
+          /* eslint-disable */
+          console.log(response);
+          this.getAllPosts();
+          /* eslint-enable */
+        })
+        .catch((error) => {
+          /* eslint-disable */
+          console.log(error);
+          /* eslint-enable */
+        });
+      // this.getAllPosts();
     },
     addBook() {
       axios.post('http://localhost:3000/books', { class: this.klass, authors: this.authors, subject: this.subject })
