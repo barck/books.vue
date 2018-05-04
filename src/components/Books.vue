@@ -1,6 +1,12 @@
 <template>
   <div>
     <code class="display-1">/Books.page</code>
+    <v-form class="add_book">
+      <v-text-field label="Класс" v-model="klass"></v-text-field>
+      <v-text-field label="Автор" v-model="authors"></v-text-field>
+      <v-text-field label="Предмет" v-model="subject"></v-text-field>
+      <v-btn @click.prevent="addBook">Добавить книгу</v-btn>
+    </v-form>
     <div class="books-container">
       <v-card v-for="book in books" :key="book.id">
         <v-card-media height="200px" >
@@ -31,7 +37,9 @@ export default {
   name: 'Books',
   data() {
     return {
-      show: true,
+      klass: '',
+      authors: '',
+      subject: '',
       books: [],
       booksUrl: 'http://localhost:3000/books',
     };
@@ -43,6 +51,19 @@ export default {
       axios.get(this.booksUrl)
         .then((response) => {
           this.books = response.data;
+        });
+    },
+    addBook() {
+      axios.post('http://localhost:3000/books', { class: this.klass, authors: this.authors, subject: this.subject })
+        .then((response) => {
+          /* eslint-disable */
+          console.log(response);
+          /* eslint-enable */
+        })
+        .catch((error) => {
+          /* eslint-disable */
+          console.log(error);
+          /* eslint-enable */
         });
     },
   },
