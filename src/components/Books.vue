@@ -48,13 +48,16 @@ export default {
   computed: {
   },
   methods: {
+    test() {
+      alert(1);
+    },
     bookLink(id) {
       /* eslint-disable no-console */
       console.log(id);
       window.location.href += `/${id}`;
       // this.$route.params;
     },
-    getAllPosts() {
+    getAllBooks() {
       axios.get(this.booksUrl)
         .then((response) => {
           this.books = response.data;
@@ -65,7 +68,7 @@ export default {
       axios.delete(deleteBookUrl)
         .then((response) => {
           console.log(response);
-          this.getAllPosts();
+          this.getAllBooks();
         })
         .catch((error) => {
           console.log(error);
@@ -76,7 +79,7 @@ export default {
       axios.post('http://localhost:3000/books', { class: this.klass, authors: this.authors, subject: this.subject })
         .then((response) => {
           console.log(response);
-          this.getAllPosts();
+          this.getAllBooks();
         })
         .catch((error) => {
           console.log(error);
@@ -87,7 +90,7 @@ export default {
   //   this.getAllPosts();
   // },
   mounted() {
-    this.getAllPosts();
+    this.getAllBooks();
   },
 };
 </script>
