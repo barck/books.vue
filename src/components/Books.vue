@@ -22,7 +22,7 @@
         </v-card-title>
         <v-card-actions>
           <v-btn flat color="orange" @click="deleteBook(book.id)">Удалить</v-btn>
-          <v-btn flat color="orange">Редактировать</v-btn>
+          <v-btn flat color="orange" @click="bookLink(book.id)">Страница книги</v-btn>
         </v-card-actions>
       </v-card>
     </div>
@@ -48,6 +48,12 @@ export default {
   computed: {
   },
   methods: {
+    bookLink(id) {
+      /* eslint-disable no-console */
+      console.log(id);
+      window.location.href += `/${id}`;
+      // this.$route.params;
+    },
     getAllPosts() {
       axios.get(this.booksUrl)
         .then((response) => {
@@ -58,30 +64,22 @@ export default {
       const deleteBookUrl = `http://localhost:3000/books/${id}`;
       axios.delete(deleteBookUrl)
         .then((response) => {
-          /* eslint-disable */
           console.log(response);
           this.getAllPosts();
-          /* eslint-enable */
         })
         .catch((error) => {
-          /* eslint-disable */
           console.log(error);
-          /* eslint-enable */
         });
       // this.getAllPosts();
     },
     addBook() {
       axios.post('http://localhost:3000/books', { class: this.klass, authors: this.authors, subject: this.subject })
         .then((response) => {
-          /* eslint-disable */
           console.log(response);
           this.getAllPosts();
-          /* eslint-enable */
         })
         .catch((error) => {
-          /* eslint-disable */
           console.log(error);
-          /* eslint-enable */
         });
     },
   },
