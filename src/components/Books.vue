@@ -5,10 +5,10 @@
       <v-text-field label="Класс" v-model="klass"></v-text-field>
       <v-text-field label="Автор" v-model="authors"></v-text-field>
       <v-text-field label="Предмет" v-model="subject"></v-text-field>
-      <v-btn @click.prevent="addBook">Добавить книгу</v-btn>
+      <v-btn @click.prevent="addBook" color="warning" >Добавить книгу</v-btn>
     </v-form>
     <div class="books-container">
-      <v-card v-for="book in books" :key="book.id">
+      <v-card class="book" v-for="book in books" :key="book.id">
         <v-card-media height="100px" >
           <img src="../assets/img/book.jpg" alt="">
         </v-card-media>
