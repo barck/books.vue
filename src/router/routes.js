@@ -5,5 +5,5 @@ import Book from '@/components/Book';
 export default [
   { path: '/', name: 'index', component: Index },
   { path: '/books', name: 'books', component: Books },
-  { path: '/books/:id', name: 'book', component: Book },
+  { path: '/book/:id', name: 'book', component: Book },
 ];

@@ -47,6 +47,7 @@
 <script>
 import axios from 'axios';
 import PictureInput from 'vue-picture-input';
+import store from '../store/index';
 
 export default {
   name: 'Books',
@@ -59,6 +60,7 @@ export default {
       klass: '',
       authors: '',
       subject: '',
+      userBookId: '',
       books: [],
       booksUrl: 'http://localhost:3000/books',
     };
@@ -70,7 +72,7 @@ export default {
       /* eslint-disable no-console */
       console.log(id);
       // window.location.href += `/${id}`;
-      this.$router.push(`books/${id}`);
+      this.$router.push(`book/${id}`);
       // this.$route.params;
     },
     getAllBooks() {
@@ -92,7 +94,7 @@ export default {
       // this.getAllPosts();
     },
     addBook() {
-      axios.post('http://localhost:3000/books', { class: this.klass, authors: this.authors, subject: this.subject })
+      axios.post('http://localhost:3000/books', { class: this.klass, authors: this.authors, subject: this.subject, userBookId: store.state.user })
         .then((response) => {
           console.log(response);
           this.getAllBooks();

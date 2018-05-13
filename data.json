@@ -95,6 +95,55 @@
       "authors": "123321",
       "subject": "math",
       "id": 23
+    },
+    {
+      "class": "1",
+      "authors": "1",
+      "subject": "1",
+      "userBookId": 1,
+      "id": 24
+    },
+    {
+      "class": "23",
+      "authors": "3",
+      "subject": "3",
+      "userBookId": 1,
+      "id": 25
+    },
+    {
+      "class": "343",
+      "authors": "4343",
+      "subject": "43",
+      "userBookId": 1,
+      "id": 26
+    },
+    {
+      "class": "234",
+      "authors": "4234",
+      "subject": "23423",
+      "userBookId": 1,
+      "id": 27
+    },
+    {
+      "class": "",
+      "authors": "",
+      "subject": "",
+      "userBookId": 1,
+      "id": 28
+    },
+    {
+      "class": "",
+      "authors": "",
+      "subject": "",
+      "userBookId": 1,
+      "id": 29
+    },
+    {
+      "class": "user2",
+      "authors": "user2",
+      "subject": "user2",
+      "userBookId": 2,
+      "id": 30
     }
   ],
   "users": [
