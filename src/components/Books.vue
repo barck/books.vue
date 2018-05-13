@@ -5,6 +5,20 @@
       <v-text-field label="Класс" v-model="klass"></v-text-field>
       <v-text-field label="Автор" v-model="authors"></v-text-field>
       <v-text-field label="Предмет" v-model="subject"></v-text-field>
+      <picture-input
+          ref="pictureInput"
+          @change="onChange"
+          :width="200"
+          :removable="true"
+          removeButtonClass="ui red button"
+          :height="200"
+          accept="image/jpeg, image/png, image/gif"
+          buttonClass="ui button primary"
+          :customStrings="{
+          upload: '<h1>Upload it!</h1>',
+          drag: 'Drag and drop your image here'}">
+      </picture-input>
+      <v-btn @click.prevent="addImg" color="warning" >Добавить картинку</v-btn>
       <v-btn @click.prevent="addBook" color="warning" >Добавить книгу</v-btn>
     </v-form>
     <div class="books-container">
@@ -32,9 +46,13 @@
 
 <script>
 import axios from 'axios';
+import PictureInput from 'vue-picture-input';
 
 export default {
   name: 'Books',
+  components: {
+    PictureInput,
+  },
   data() {
     return {
       currentBook: 0,
@@ -48,13 +66,11 @@ export default {
   computed: {
   },
   methods: {
-    test() {
-      alert(1);
-    },
     bookLink(id) {
       /* eslint-disable no-console */
       console.log(id);
-      window.location.href += `/${id}`;
+      // window.location.href += `/${id}`;
+      this.$router.push(`books/${id}`);
       // this.$route.params;
     },
     getAllBooks() {
@@ -84,6 +100,19 @@ export default {
         .catch((error) => {
           console.log(error);
         });
+    },
+    onChange(image) {
+      console.log('New picture selected!');
+      if (image) {
+        console.log('Picture loaded.');
+        this.image = image;
+      } else {
+        console.log('FileReader API not supported: use the <form>, Luke!');
+      }
+    },
+    addImg() {
+      this.image = this.$refs.pictureInput.file;
+      console.log(this.image);
     },
   },
   // updated() {

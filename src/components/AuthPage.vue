@@ -2,10 +2,10 @@
   <div>
     <v-layout row justify-center>
       <v-dialog v-model="dialog" persistent max-width="500px">
-        <v-btn color="primary" dark slot="activator">Sign Up</v-btn>
+        <v-btn color="primary" dark slot="activator">Sign In</v-btn>
         <v-card>
           <v-card-title>
-            <span class="headline">Sign Up</span>
+            <span class="headline">Sign In</span>
           </v-card-title>
           <v-card-text>
             <v-container grid-list-md>
@@ -19,7 +19,7 @@
           <v-card-actions>
             <v-spacer></v-spacer>
             <v-btn color="blue darken-1" flat @click.native="dialog = false">Close</v-btn>
-            <v-btn color="blue darken-1" flat @click.native="signUp">Sign Up</v-btn>
+            <v-btn color="blue darken-1" flat @click.native="SignIn">Sign In</v-btn>
           </v-card-actions>
         </v-card>
         <v-alert type="success" v-model="successAlert">
@@ -41,11 +41,14 @@ import axios from 'axios';
 import store from '../store/index';
 
 export default {
-  name: 'RegPage',
+  name: 'AuthPage',
   data() {
     return {
       user: null,
       users: [],
+      nameRules: [
+        v => !!v || 'Name is required',
+      ],
       dialog: false,
       successAlert: false,
       errorAlert: false,
@@ -53,35 +56,17 @@ export default {
     };
   },
   methods: {
-    async signUp() {
-      this.users = (await axios.get('http://localhost:3000/users')).data;
-      const exist = this.users.find(user => user.name === this.user);
-      if (exist !== undefined) {
-        this.tooAlert = true;
-        this.successAlert = false;
-        this.errorAlert = false;
-      } else if (this.user != null) {
-        axios.post('http://localhost:3000/users', { name: this.user })
-          .then((response) => {
-            /* eslint-disable no-console */
-            console.log(response);
-            this.successAlert = true;
-            this.errorAlert = false;
-            this.tooAlert = false;
-            this.$router.push('books');
-            store.commit('USER_REGISTRATION', response.data.id);
-          })
-          .catch((error) => {
-            console.log(error);
-            this.errorAlert = true;
-            this.tooAlert = false;
-            this.successAlert = false;
-          });
-      } else {
-        console.log('Empty name!');
-        this.errorAlert = true;
-        this.tooAlert = false;
-        this.successAlert = false;
+    async SignIn() {
+      if (this.user !== null) {
+        this.users = (await axios.get('http://localhost:3000/users')).data;
+        const exist = this.users.find(user => user.name === this.user);
+        /* eslint-disable no-console */
+        console.log(exist);
+        if (exist !== undefined) {
+          console.log(`Приветствуем ${this.user}`);
+          store.commit('USER_REGISTRATION', exist.id);
+          this.$router.push('books');
+        }
       }
     },
   },
