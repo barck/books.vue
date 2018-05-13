@@ -5,26 +5,15 @@
       <v-text-field label="Класс" v-model="klass"></v-text-field>
       <v-text-field label="Автор" v-model="authors"></v-text-field>
       <v-text-field label="Предмет" v-model="subject"></v-text-field>
-      <picture-input
-          ref="pictureInput"
-          @change="onChange"
-          :width="200"
-          :removable="true"
-          removeButtonClass="ui red button"
-          :height="200"
-          accept="image/jpeg, image/png, image/gif"
-          buttonClass="ui button primary"
-          :customStrings="{
-          upload: '<h1>Upload it!</h1>',
-          drag: 'Drag and drop your image here'}">
-      </picture-input>
-      <v-btn @click.prevent="addImg" color="warning" >Добавить картинку</v-btn>
+      <input type="file" id="file" name="file">
+      <v-btn @click.prevent="addImg" color="warning">Добавить картинку</v-btn>
       <v-btn @click.prevent="addBook" color="warning" >Добавить книгу</v-btn>
     </v-form>
     <div class="books-container">
       <v-card class="book" v-for="book in books" :key="book.id">
         <v-card-media height="100px" >
-          <img src="../assets/img/book.jpg" alt="">
+          <img src="../assets/img/book.jpg" alt="" v-if="!book.cover">
+          <img v-bind:src="book.cover">
         </v-card-media>
         <v-card-title primary-title>
           <div>
@@ -61,6 +50,7 @@ export default {
       authors: '',
       subject: '',
       userBookId: '',
+      cover: '',
       books: [],
       booksUrl: 'http://localhost:3000/books',
     };
@@ -94,7 +84,8 @@ export default {
       // this.getAllPosts();
     },
     addBook() {
-      axios.post('http://localhost:3000/books', { class: this.klass, authors: this.authors, subject: this.subject, userBookId: store.state.user })
+      this.addImg();
+      axios.post('http://localhost:3000/books', { class: this.klass, authors: this.authors, subject: this.subject, userBookId: store.state.user, cover: this.cover })
         .then((response) => {
           console.log(response);
           this.getAllBooks();
@@ -112,9 +103,21 @@ export default {
         console.log('FileReader API not supported: use the <form>, Luke!');
       }
     },
+    getBase64(file) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = error => reject(error);
+      });
+    },
     addImg() {
-      this.image = this.$refs.pictureInput.file;
-      console.log(this.image);
+      const file = document.querySelector('#file').files[0];
+      this.getBase64(file).then(
+        (data) => {
+          this.cover = data;
+        },
+      );
     },
   },
   // updated() {

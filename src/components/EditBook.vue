@@ -10,16 +10,36 @@
         </v-card-media>
         <v-card-title primary-title>
           <div>
-            <h4>{{ book.id }}</h4>
-            <h3 class="headline mb-0">{{ book.class }} класс</h3>
-            <h3>{{ book.subject }}</h3>
-            <h5 >{{ book.authors }}</h5>
+            <v-text-field
+                name="input-2"
+                label="Book ID"
+                class="input-group--focused"
+                v-bind:value="book.id"
+            ></v-text-field>
+            <v-text-field
+                name="input-2"
+                label="Book Class"
+                class="input-group--focused"
+                v-bind:value="book.class"
+            ></v-text-field>
+            <v-text-field
+                name="input-2"
+                label="Book Subject"
+                class="input-group--focused"
+                v-bind:value="book.subject"
+            ></v-text-field>
+            <v-text-field
+                name="input-2"
+                label="Book Authors"
+                class="input-group--focused"
+                v-bind:value="book.authors"
+            ></v-text-field>
             <h5 >User ID: {{ book.userBookId }}</h5>
           </div>
+          <v-btn flat color="orange"
+                 v-show="showEditBtn === book.userBookId"
+                 >Сохранить</v-btn>
         </v-card-title>
-        <v-btn flat color="orange"
-        v-show="showEditBtn === book.userBookId"
-        @click="editBook(book.id)">Редактировать</v-btn>
       </v-card>
     </div>
     <br>
@@ -49,9 +69,6 @@ export default {
         .then((response) => {
           this.book = response.data;
         });
-    },
-    editBook(id) {
-      this.$router.push(`edit_book/${id}`);
     },
   },
   mounted() {

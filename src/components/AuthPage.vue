@@ -65,7 +65,7 @@ export default {
         if (exist !== undefined) {
           console.log(`Приветствуем ${this.user}`);
           store.commit('USER_REGISTRATION', exist.id);
-          this.$router.push('books');
+          // this.$router.push('books');
         }
       }
     },
