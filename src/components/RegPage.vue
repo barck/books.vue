@@ -2,7 +2,7 @@
   <div>
     <v-layout row justify-center>
       <v-dialog v-model="dialog" persistent max-width="500px">
-        <v-btn color="primary" dark slot="activator">Sign Up</v-btn>
+        <v-btn color="primary" dark slot="activator" v-if="!showRegBtn">Sign Up</v-btn>
         <v-card>
           <v-card-title>
             <span class="headline">Sign Up</span>
@@ -50,6 +50,7 @@ export default {
       successAlert: false,
       errorAlert: false,
       tooAlert: false,
+      showRegBtn: store.state.user,
     };
   },
   methods: {

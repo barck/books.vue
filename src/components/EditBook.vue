@@ -38,6 +38,7 @@
           </div>
           <v-btn flat color="orange"
                  v-show="showEditBtn === book.userBookId"
+                 @click="saveEditions"
                  >Сохранить</v-btn>
         </v-card-title>
       </v-card>
@@ -69,6 +70,9 @@ export default {
         .then((response) => {
           this.book = response.data;
         });
+    },
+    saveEditions() {
+      console.log(1);
     },
   },
   mounted() {

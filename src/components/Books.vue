@@ -21,10 +21,12 @@
             <h3 class="headline mb-0">{{ book.class }} класс</h3>
             <h3>{{ book.subject }}</h3>
             <h5 >{{ book.authors }}</h5>
+            <h5 >User ID: {{ book.userBookId }}</h5>
           </div>
         </v-card-title>
         <v-card-actions>
-          <v-btn flat color="orange" @click="deleteBook(book.id)">Удалить</v-btn>
+          <v-btn flat color="orange"
+               @click="deleteBook(book.id)" v-show="showEditBtn === book.userBookId">Удалить</v-btn>
           <v-btn flat color="orange" @click="bookLink(book.id)">Страница книги</v-btn>
         </v-card-actions>
       </v-card>
@@ -51,6 +53,7 @@ export default {
       subject: '',
       userBookId: '',
       cover: '',
+      showEditBtn: store.state.user,
       books: [],
       booksUrl: 'http://localhost:3000/books',
     };

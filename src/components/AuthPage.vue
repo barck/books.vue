@@ -2,7 +2,7 @@
   <div>
     <v-layout row justify-center>
       <v-dialog v-model="dialog" persistent max-width="500px">
-        <v-btn color="primary" dark slot="activator">Sign In</v-btn>
+        <v-btn color="primary" dark slot="activator" v-if="!showAuthBtn">Sign In</v-btn>
         <v-card>
           <v-card-title>
             <span class="headline">Sign In</span>
@@ -46,6 +46,7 @@ export default {
     return {
       user: null,
       users: [],
+      showAuthBtn: store.state.user,
       nameRules: [
         v => !!v || 'Name is required',
       ],
