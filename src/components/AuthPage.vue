@@ -42,19 +42,17 @@ import store from '../store/index';
 
 export default {
   name: 'AuthPage',
-  data() {
-    return {
-      user: null,
-      users: [],
-      nameRules: [
-        v => !!v || 'Name is required',
-      ],
-      dialog: false,
-      successAlert: false,
-      errorAlert: false,
-      tooAlert: false,
-    };
-  },
+  data: () => ({
+    user: null,
+    users: [],
+    nameRules: [
+      v => !!v || 'Name is required',
+    ],
+    dialog: false,
+    successAlert: false,
+    errorAlert: false,
+    tooAlert: false,
+  }),
   methods: {
     async SignIn() {
       if (this.user !== null) {

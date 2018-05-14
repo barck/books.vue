@@ -33,14 +33,12 @@ import store from '../store/index';
 
 export default {
   name: 'Book',
-  data() {
-    return {
-      klass: '',
-      authors: '',
-      subject: '',
-      book: {},
-    };
-  },
+  data: () => ({
+    klass: '',
+    authors: '',
+    subject: '',
+    book: {},
+  }),
   computed: {
     showEditBtn() { return store.state.user; },
   },

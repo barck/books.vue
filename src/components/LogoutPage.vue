@@ -11,17 +11,15 @@ import store from '../store/index';
 
 export default {
   name: 'Logout',
-  data() {
-    return {
-      user: null,
-      users: [],
-      dialog: false,
-      successAlert: false,
-      errorAlert: false,
-      tooAlert: false,
-      showLogoutBtn: store.state.user,
-    };
-  },
+  data: () => ({
+    user: null,
+    users: [],
+    dialog: false,
+    successAlert: false,
+    errorAlert: false,
+    tooAlert: false,
+    showLogoutBtn: store.state.user,
+  }),
   methods: {
     Logout() {
       store.commit('LOGOUT');

@@ -53,13 +53,11 @@ import store from '../store/index';
 
 export default {
   name: 'Book',
-  data() {
-    return {
-      book: {},
-      cover: '',
-      errorAlert: false,
-    };
-  },
+  data: () => ({
+    book: {},
+    cover: '',
+    errorAlert: false,
+  }),
   computed: {
     showEditBtn() { return store.state.user; },
   },

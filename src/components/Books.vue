@@ -48,20 +48,18 @@ export default {
   components: {
     PictureInput,
   },
-  data() {
-    return {
-      currentBook: 0,
-      klass: '',
-      authors: '',
-      subject: '',
-      userBookId: '',
-      cover: '',
-      errorAlert: false,
-      books: [],
-      booksUrl: 'http://localhost:3000/books',
-      pageNumber: 0,
-    };
-  },
+  data: () => ({
+    currentBook: 0,
+    klass: '',
+    authors: '',
+    subject: '',
+    userBookId: '',
+    cover: '',
+    errorAlert: false,
+    books: [],
+    booksUrl: 'http://localhost:3000/books',
+    pageNumber: 0,
+  }),
   computed: {
     showEditBtn() { return store.state.user; },
   },

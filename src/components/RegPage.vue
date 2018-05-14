@@ -42,17 +42,15 @@ import store from '../store/index';
 
 export default {
   name: 'RegPage',
-  data() {
-    return {
-      user: null,
-      users: [],
-      dialog: false,
-      successAlert: false,
-      errorAlert: false,
-      tooAlert: false,
-      showRegBtn: store.state.user,
-    };
-  },
+  data: () => ({
+    user: null,
+    users: [],
+    dialog: false,
+    successAlert: false,
+    errorAlert: false,
+    tooAlert: false,
+    showRegBtn: store.state.user,
+  }),
   methods: {
     async signUp() {
       this.users = (await axios.get('http://localhost:3000/users')).data;
