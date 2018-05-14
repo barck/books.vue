@@ -10,35 +10,30 @@
         </v-card-media>
         <v-card-title primary-title>
           <div>
-            <v-text-field
-                name="input-2"
-                label="Book ID"
-                class="input-group--focused"
-                v-bind:value="book.id"
-            ></v-text-field>
+            <h5>Book ID: {{ book.id }}</h5>
             <v-text-field
                 name="input-2"
                 label="Book Class"
                 class="input-group--focused"
-                v-bind:value="book.class"
+                v-model="book.class"
             ></v-text-field>
             <v-text-field
                 name="input-2"
                 label="Book Subject"
                 class="input-group--focused"
-                v-bind:value="book.subject"
+                v-model="book.subject"
             ></v-text-field>
             <v-text-field
                 name="input-2"
                 label="Book Authors"
                 class="input-group--focused"
-                v-bind:value="book.authors"
+                v-model="book.authors"
             ></v-text-field>
             <h5 >User ID: {{ book.userBookId }}</h5>
           </div>
           <v-btn flat color="orange"
                  v-show="showEditBtn === book.userBookId"
-                 @click="saveEditions"
+                 @click="saveEditions(book.id)"
                  >Сохранить</v-btn>
         </v-card-title>
       </v-card>
@@ -55,9 +50,6 @@ export default {
   name: 'Book',
   data() {
     return {
-      klass: '',
-      authors: '',
-      subject: '',
       book: {},
       showEditBtn: store.state.user,
     };
@@ -71,9 +63,20 @@ export default {
           this.book = response.data;
         });
     },
-    saveEditions() {
-      console.log(1);
-    },
+    // deleteBook(id) {
+    //   const deleteBookUrl = `http://localhost:3000/books/${id}`;
+    //   axios.delete(deleteBookUrl)
+    //     .then((response) => {
+    //       console.log(response);
+    //     })
+    //     .catch((error) => {
+    //       console.log(error);
+    //     });
+    //   // this.getAllPosts();
+    // },
+    // saveEditions(id) {
+    //   this.deleteBook(id);
+    // },
   },
   mounted() {
     this.getBook();

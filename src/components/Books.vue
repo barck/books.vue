@@ -87,24 +87,21 @@ export default {
       // this.getAllPosts();
     },
     addBook() {
-      this.addImg();
-      axios.post('http://localhost:3000/books', { class: this.klass, authors: this.authors, subject: this.subject, userBookId: store.state.user, cover: this.cover })
-        .then((response) => {
-          console.log(response);
-          this.getAllBooks();
+      const file = document.querySelector('#file').files[0];
+      this.getBase64(file)
+        .then((data) => {
+          this.cover = data;
         })
-        .catch((error) => {
-          console.log(error);
+        .then(() => {
+          axios.post('http://localhost:3000/books', { class: this.klass, authors: this.authors, subject: this.subject, userBookId: store.state.user, cover: this.cover })
+            .then((response) => {
+              console.log(response);
+              this.getAllBooks();
+            })
+            .catch((error) => {
+              console.log(error);
+            });
         });
-    },
-    onChange(image) {
-      console.log('New picture selected!');
-      if (image) {
-        console.log('Picture loaded.');
-        this.image = image;
-      } else {
-        console.log('FileReader API not supported: use the <form>, Luke!');
-      }
     },
     getBase64(file) {
       return new Promise((resolve, reject) => {
@@ -113,14 +110,6 @@ export default {
         reader.onload = () => resolve(reader.result);
         reader.onerror = error => reject(error);
       });
-    },
-    addImg() {
-      const file = document.querySelector('#file').files[0];
-      this.getBase64(file).then(
-        (data) => {
-          this.cover = data;
-        },
-      );
     },
   },
   // updated() {
