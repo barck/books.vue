@@ -33,6 +33,7 @@
         </v-card-actions>
       </v-card>
     </div>
+    <v-pagination :length="6" v-model="page"></v-pagination>
     <br>
   </div>
 </template>
@@ -55,13 +56,14 @@ export default {
       subject: '',
       userBookId: '',
       cover: '',
-      showEditBtn: store.state.user,
       errorAlert: false,
       books: [],
       booksUrl: 'http://localhost:3000/books',
+      page: 0,
     };
   },
   computed: {
+    showEditBtn() { return store.state.user; },
   },
   methods: {
     bookLink(id) {

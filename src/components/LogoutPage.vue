@@ -25,7 +25,7 @@ export default {
   methods: {
     Logout() {
       store.commit('LOGOUT');
-      this.$router.push('books-list');
+      this.$router.push('/books');
     },
   },
 };

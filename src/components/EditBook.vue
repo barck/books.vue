@@ -4,7 +4,8 @@
     <br>
     <code class="display-1">/Book.page</code>
     <div class="books-container">
-      <v-card class="book" :key="book.id">
+      <h2 style="color: #fff" v-if="showEditBtn !== book.userBookId">Your not auth!</h2>
+      <v-card class="book" :key="book.id" v-if="showEditBtn === book.userBookId">
         <v-card-media height="100px" >
           <img src="../assets/img/book.jpg" alt="" v-if="!book.cover">
           <img v-bind:src="book.cover">
@@ -37,7 +38,6 @@
             <h5 >User ID: {{ book.userBookId }}</h5>
           </div>
           <v-btn flat color="orange"
-                 v-show="showEditBtn === book.userBookId"
                  @click="saveEditions(book.id)"
                  >Сохранить</v-btn>
         </v-card-title>
@@ -58,8 +58,10 @@ export default {
       book: {},
       cover: '',
       errorAlert: false,
-      showEditBtn: store.state.user,
     };
+  },
+  computed: {
+    showEditBtn() { return store.state.user; },
   },
   methods: {
     getBook() {
@@ -87,7 +89,13 @@ export default {
           })
           .then(() => {
             const id = this.$route.params.id;
-            axios.put(`http://localhost:3000/books/${id}`, { class: this.book.class, subject: this.book.subject, authors: this.book.authors, userBookId: this.book.userBookId, cover: this.cover });
+            axios.put(`http://localhost:3000/books/${id}`, {
+              class: this.book.class,
+              subject: this.book.subject,
+              authors: this.book.authors,
+              userBookId: this.book.userBookId,
+              cover: this.cover,
+            });
             this.$router.push(`/book/${id}`);
           });
       } else {

@@ -39,8 +39,10 @@ export default {
       authors: '',
       subject: '',
       book: {},
-      showEditBtn: store.state.user,
     };
+  },
+  computed: {
+    showEditBtn() { return store.state.user; },
   },
   methods: {
     getBook() {
