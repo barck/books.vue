@@ -69,8 +69,8 @@ export default {
             this.successAlert = true;
             this.errorAlert = false;
             this.tooAlert = false;
-            // this.$router.push('books');
             store.commit('USER_REGISTRATION', response.data.id);
+            this.$router.push('/books');
           })
           .catch((error) => {
             console.log(error);

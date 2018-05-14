@@ -23,11 +23,11 @@ export default {
   name: 'Header',
   data() {
     return {
-      isAuth: store.state.user,
     };
   },
   computed: {
     showAuthBtn() { return store.state.user; },
+    isAuth() { return store.state.user; },
   },
 };
 </script>

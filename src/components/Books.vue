@@ -33,7 +33,7 @@
         </v-card-actions>
       </v-card>
     </div>
-    <v-pagination :length="6" v-model="page"></v-pagination>
+    <v-pagination :length="2" v-model="page"></v-pagination>
     <br>
   </div>
 </template>
@@ -59,7 +59,7 @@ export default {
       errorAlert: false,
       books: [],
       booksUrl: 'http://localhost:3000/books',
-      page: 0,
+      pageNumber: 0,
     };
   },
   computed: {
