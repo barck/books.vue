@@ -6,9 +6,11 @@
       <v-text-field label="Автор" v-model="authors"></v-text-field>
       <v-text-field label="Предмет" v-model="subject"></v-text-field>
       <input type="file" id="file" name="file">
-      <v-btn @click.prevent="addImg" color="warning">Добавить картинку</v-btn>
       <v-btn @click.prevent="addBook" color="warning" >Добавить книгу</v-btn>
     </v-form>
+    <v-alert type="error" v-model="errorAlert">
+      Empty img!
+    </v-alert>
     <div class="books-container">
       <v-card class="book" v-for="book in books" :key="book.id">
         <v-card-media height="100px" >
@@ -54,6 +56,7 @@ export default {
       userBookId: '',
       cover: '',
       showEditBtn: store.state.user,
+      errorAlert: false,
       books: [],
       booksUrl: 'http://localhost:3000/books',
     };
@@ -88,20 +91,24 @@ export default {
     },
     addBook() {
       const file = document.querySelector('#file').files[0];
-      this.getBase64(file)
-        .then((data) => {
-          this.cover = data;
-        })
-        .then(() => {
-          axios.post('http://localhost:3000/books', { class: this.klass, authors: this.authors, subject: this.subject, userBookId: store.state.user, cover: this.cover })
-            .then((response) => {
-              console.log(response);
-              this.getAllBooks();
-            })
-            .catch((error) => {
-              console.log(error);
-            });
-        });
+      if (file) {
+        this.getBase64(file)
+          .then((data) => {
+            this.cover = data;
+          })
+          .then(() => {
+            axios.post('http://localhost:3000/books', { class: this.klass, authors: this.authors, subject: this.subject, userBookId: store.state.user, cover: this.cover })
+              .then((response) => {
+                console.log(response);
+                this.getAllBooks();
+              })
+              .catch((error) => {
+                console.log(error);
+              });
+          });
+      } else {
+        this.errorAlert = true;
+      }
     },
     getBase64(file) {
       return new Promise((resolve, reject) => {

@@ -6,7 +6,8 @@
     <div class="books-container">
       <v-card class="book" :key="book.id">
         <v-card-media height="100px" >
-          <img src="../assets/img/book.jpg" alt="">
+          <img src="../assets/img/book.jpg" alt="" v-if="!book.cover">
+          <img v-bind:src="book.cover">
         </v-card-media>
         <v-card-title primary-title>
           <div>
